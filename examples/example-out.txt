@@ -1,0 +1,92 @@
+Yes, Bob has a child named jim.
+But he doesn't have one named george.
+And in fact, jim isn't any more.
+Mary has 2 kids.
+Bob's phone is 555-1212
+Bob's wife is Mary
+Mary's phone is 123-4567
+Bob's wife's phone is 123-4567
+Mary's web site is http://www.example.org/~mary
+their 2 kids' names are:
+   bob
+   joe
+Bob has worked at: [u'7-11', u'Wal-Mart', u'Goldman Sachs']
+Mary's age is 23
+Bob's age is 27 <type 'int'>
+Bob's properties: person_name, rdf_type, person_age, person_picture, contact_phone, contact_address, person_wife, person_employment_history, person_childname, person_childname
+Bob has a wife? True
+Her name? Mary
+
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+   xmlns:xs="http://www.w3.org/2001/XMLSchema#"
+   xmlns:owl="http://www.w3.org/2002/07/owl#"
+   xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+   xmlns:contact="http://www.example.com/contact#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:person="http://www.example.com/person#"
+>
+  <rdf:Description rdf:about="http://www.example.com/person#name">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.example.com/person#age">
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.example.com/person#picture">
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#base64Binary"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="_:foilOCoV3">
+    <rdf:rest rdf:nodeID="_:foilOCoV4"/>
+    <rdf:first>Wal-Mart</rdf:first>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.example.com/contact#phone">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.example.com/person#bob">
+    <person:name>Bob</person:name>
+    <rdf:type rdf:resource="http://www.example.com/person#Person"/>
+    <person:age>27</person:age>
+    <person:picture>9YhWIicFtjEh4Uc9iFmEzhFT5xH9vkA6xg==</person:picture>
+    <contact:phone>555-1212</contact:phone>
+    <contact:address rdf:nodeID="_:foilOCoV1"/>
+    <person:wife rdf:resource="http://www.example.com/person#mary"/>
+    <person:employment_history rdf:nodeID="_:foilOCoV2"/>
+    <person:childname>bob</person:childname>
+    <person:childname>joe</person:childname>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.example.com/person#mary">
+    <person:name>Mary</person:name>
+    <person:hair>blue</person:hair>
+    <person:age>23</person:age>
+    <contact:phone>123-4567</contact:phone>
+    <contact:www>http://www.example.org/~mary</contact:www>
+    <person:childname>bob</person:childname>
+    <person:childname>joe</person:childname>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.example.com/person#wife">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.example.com/contact#www">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="_:foilOCoV4">
+    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+    <rdf:first>Goldman Sachs</rdf:first>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.example.com/person#employment_history">
+    <rdfs:range rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#List"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="_:foilOCoV2">
+    <rdf:rest rdf:nodeID="_:foilOCoV3"/>
+    <rdf:first>7-11</rdf:first>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="_:foilOCoV1">
+    <contact:city>EveryVille</contact:city>
+    <contact:zip>12345</contact:zip>
+    <contact:street>314159 There Street</contact:street>
+    <contact:state>NA</contact:state>
+  </rdf:Description>
+</rdf:RDF>
+

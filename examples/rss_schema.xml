@@ -1,0 +1,19 @@
+
+<!-- Processed by Id: cwm.py,v 1.156 2004/07/06 18:04:18 syosi Exp -->
+<!--     using base file:/Users/mnot/Desktop/rdf2xml/rss_schema.n3-->
+
+
+<rdf:RDF xmlns="http://www.w3.org/2002/07/owl#"
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
+
+    <FunctionalProperty rdf:about="http://purl.org/rss/1.0/description">
+    </FunctionalProperty>
+
+    <FunctionalProperty rdf:about="http://purl.org/rss/1.0/items">
+        <rdfs:range rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq"/>
+    </FunctionalProperty>
+
+    <FunctionalProperty rdf:about="http://purl.org/rss/1.0/title">
+    </FunctionalProperty>
+</rdf:RDF>
