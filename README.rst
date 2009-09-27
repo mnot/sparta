@@ -27,7 +27,7 @@ In examples/::
   rss.py: example RSS 1.0 feed parser
   rss_schema.xml: partial RDF Schema/OWL for RSS 1.0 example
 
-For more information, see sparta.py
+For more information, see sparta.py and <http://github.com/mnot/sparta/>.
 
 Getting Started
 ---------------

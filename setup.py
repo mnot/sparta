@@ -6,8 +6,8 @@ setup(name='sparta',
 		version = '0.9-pre',
 		py_modules = ['sparta'],
 		author = 'Mark Nottingham',
-		author_email = 'mnot@pobox.com',
-		url = 'http://www.mnot.net/sw/sparta/',
+		author_email = 'mnot@mnot.net',
+		url = 'http://gitub.com/mnot/sparta',
 		description = 'Simple API for RDF',
 		long_description = """Sparta is an Python API for RDF that is designed 
 to help easily learn and navigate the Semantic Web programmatically. 
