@@ -1,4 +1,4 @@
-=====
+======
 Sparta
 ======
 
@@ -8,12 +8,15 @@ Installation
 ------------
 
 To install::
+
   python setup.py install
 
 For installation help::
+
   python setup.py install --help
   
 In examples/::
+
   example.py: Example of use
   example-out.txt: ouput of example script
   rss.py: example RSS 1.0 feed parser
