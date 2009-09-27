@@ -5,7 +5,7 @@ Sparta
 A Simple API for RDF by Mark Nottingham, <mnot@pobox.com>
 
 Sparts is a simple, resource-centric API for RDF graphs, built on top of
-redflib_. 
+rdflib_. 
 
 Installation
 ------------
@@ -74,11 +74,11 @@ An RDF node is represented as a Python object in Sparta, whose properties
 correspond to RDF arcs. To start working with a node, you must instantiate it
 with its identity; there are three ways to do this.
 
- 1. Thing("prefix_localname") - Refers to the URI indicated using the 
-    prefix mapping, as described above.
- 2. Thing(URIRef('http://www.example.com/foo#bar')) - Refers to the 
-    URI specified.
- 3. Thing(None) -  creates a bNode_ (blank, or anonymous RDF node).
+1. Thing("prefix_localname") - Refers to the URI indicated using the 
+   prefix mapping, as described above.
+2. Thing(URIRef('http://www.example.com/foo#bar')) - Refers to the 
+   URI specified.
+3. Thing(None) - creates a bNode_ (blank, or anonymous RDF node).
 
 Accessing and Manipulating Data
 -------------------------------
@@ -117,17 +117,17 @@ An RDF predicate with one of the following as its
 <http://www.w3.org/TR/rdf-schema/#ch_range> rdfs:range (according to
 the schema store) will be mapped to these Python datatypes:
 
- * rdf:List - list
- * rdf:Seq - list
- * xs:string, xs:normalizedString, xs:token, xs:language - unicode
- * xs:boolean - bool
- * xs:decimal, xs:float, xs:double - float
- * xs:integer, xs:long, xs:unsignedLong, xs:unsignedInt - long
- * xs:nonPositiveInteger, xs:nonNegativeInteger, xs:positiveInteger, 
-   xs:negativeInteger, xs:int, xs:short, xs:byte, xs:unsignedShort,
-   xs:unsignedByte - int
- * xs:anyURI - str
- * xs:base64Binary - (decoded base64)
+* rdf:List - list
+* rdf:Seq - list
+* xs:string, xs:normalizedString, xs:token, xs:language - unicode
+* xs:boolean - bool
+* xs:decimal, xs:float, xs:double - float
+* xs:integer, xs:long, xs:unsignedLong, xs:unsignedInt - long
+* xs:nonPositiveInteger, xs:nonNegativeInteger, xs:positiveInteger, 
+  xs:negativeInteger, xs:int, xs:short, xs:byte, xs:unsignedShort,
+  xs:unsignedByte - int
+* xs:anyURI - str
+* xs:base64Binary - (decoded base64)
 
 
 .. _rdflib: http://rdflib.net/Graph/
