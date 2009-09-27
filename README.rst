@@ -92,17 +92,14 @@ will print the 'rdf_type' property of the 'foo' node.
 
 There are two ways to access a property's values, depending on what Sparta
 knows about it through the schema store. If it is an 
-owl:FunctionalProperty_, 
-or if the subject is subclassed to restrict that property with either a 
-<http://www.w3.org/TR/owl-ref/#maxCardinality-def> owl:maxCardinality
-or a <http://www.w3.org/TR/owl-ref/#cardinality> owl:cardinality of
-"1", the property can be accessed as a normal, singular value; that is, it can
-be accessed as explained above, assigned with the '=' operator, deleted with
+owl:FunctionalProperty_, or if the subject is subclassed to restrict that
+property with either a owl:maxCardinality_ or a owl:cardinality_ of "1", the
+property can be accessed as a normal, singular value; that is, it can be
+accessed as explained above, assigned with the '=' operator, deleted with
 'del', and so forth.
 
 Otherwise, the property's value is assumed to have a cardinality greater
-than one, and implements a subset of the 
-<http://docs.python.org/lib/module-sets.html> sets.Set interface. For
+than one, and implements a subset of the Python set() interface. For
 example, you can add to the set with the add method, like this::
 
   foo.children.add("bob")
@@ -130,6 +127,8 @@ the schema store) will be mapped to these Python datatypes:
 * xs:base64Binary - (decoded base64)
 
 
-.. _rdflib: http://rdflib.net/Graph/
-.. _bnode: http://www.w3.org/TR/rdf-primer/#structuredproperties 
-.. _owl:FunctionProperty: http://www.w3.org/TR/owl-ref/#FunctionalProperty-def
+.. _rdflib: http://rdflib.net/
+.. _bnode: http://www.w3.org/TR/rdf-primer/#structuredproperties
+.. _cardinality: http://www.w3.org/TR/owl-ref/#cardinality
+.. _maxCardinality: http://www.w3.org/TR/owl-ref/#maxCardinality-def
+.. _FunctionalProperty: http://www.w3.org/TR/owl-ref/#FunctionalProperty-def
