@@ -111,8 +111,8 @@ Datatyping
 ----------
 
 An RDF predicate with one of the following as its 
-<http://www.w3.org/TR/rdf-schema/#ch_range> rdfs:range (according to
-the schema store) will be mapped to these Python datatypes:
+rdfs:range_ (according to the schema store) will be mapped to these
+Python datatypes:
 
 * rdf:List - list
 * rdf:Seq - list
@@ -132,3 +132,4 @@ the schema store) will be mapped to these Python datatypes:
 .. _cardinality: http://www.w3.org/TR/owl-ref/#cardinality
 .. _maxCardinality: http://www.w3.org/TR/owl-ref/#maxCardinality-def
 .. _FunctionalProperty: http://www.w3.org/TR/owl-ref/#FunctionalProperty-def
+.. _range: http://www.w3.org/TR/rdf-schema/#ch_range
