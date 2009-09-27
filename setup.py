@@ -3,7 +3,7 @@
 from distutils.core import setup
 
 setup(name='sparta',
-		version = '0.82',
+		version = '0.9-pre',
 		py_modules = ['sparta'],
 		author = 'Mark Nottingham',
 		author_email = 'mnot@pobox.com',

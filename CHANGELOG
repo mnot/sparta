@@ -1,0 +1,4 @@
+
+* Sparta 0.9 (not released)
+  - update for rdflib 2.4
+  - fix _id typo

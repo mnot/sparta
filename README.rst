@@ -4,8 +4,13 @@ Sparta
 
 A Simple API for RDF by Mark Nottingham, <mnot@pobox.com>
 
+Sparts is a simple, resource-centric API for RDF graphs, built on top of
+redflib_. 
+
 Installation
 ------------
+
+Sparta requires rdflib_ 2.4+.
 
 To install::
 
@@ -30,7 +35,7 @@ Getting Started
 The easiest way to get started is to play with it; take a look at the example 
 files above. You can also take a look through the preliminary documentation below.
 
-Sparta is a wrapper around an rdflib <http://rdflib.net/Graph/> Graph. To use it, 
+Sparta is a wrapper around an rdflib_ Graph. To use it, 
 you must first instantiate one or more Graphs, make any necessary prefix mappings, 
 and then instantiate a ThingFactory.
 
@@ -73,9 +78,7 @@ with its identity; there are three ways to do this.
     prefix mapping, as described above.
  2. Thing(URIRef('http://www.example.com/foo#bar')) - Refers to the 
     URI specified.
- 3. Thing(None) -  creates a 
-     <http://www.w3.org/TR/rdf-primer/#structuredproperties > bNode
-     (blank, or anonymous RDF node).
+ 3. Thing(None) -  creates a bNode_ (blank, or anonymous RDF node).
 
 Accessing and Manipulating Data
 -------------------------------
@@ -89,7 +92,7 @@ will print the 'rdf_type' property of the 'foo' node.
 
 There are two ways to access a property's values, depending on what Sparta
 knows about it through the schema store. If it is an 
-<http://www.w3.org/TR/owl-ref/#FunctionalProperty-def">owl:FunctionalProperty>, 
+owl:FunctionalProperty_, 
 or if the subject is subclassed to restrict that property with either a 
 <http://www.w3.org/TR/owl-ref/#maxCardinality-def> owl:maxCardinality
 or a <http://www.w3.org/TR/owl-ref/#cardinality> owl:cardinality of
@@ -125,3 +128,8 @@ the schema store) will be mapped to these Python datatypes:
    xs:unsignedByte - int
  * xs:anyURI - str
  * xs:base64Binary - (decoded base64)
+
+
+.. _rdflib: http://rdflib.net/Graph/
+.. _bnode: http://www.w3.org/TR/rdf-primer/#structuredproperties 
+.. _owl:FunctionProperty: http://www.w3.org/TR/owl-ref/#FunctionalProperty-def

@@ -32,15 +32,16 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
-__version__ = "0.9-pre"
+__version__ = "0.81"
 
-import base64
+import base64, sets
 import rdflib   # http://rdflib.net/
 from rdflib.Identifier import Identifier as ID
 from rdflib.URIRef import URIRef as URI
 from rdflib.BNode import BNode
 from rdflib.Literal import Literal
-from rdflib import RDF, RDFS
+from rdflib.constants import RDFS_RANGE, SEQ, LIST, FIRST, REST, NIL, TYPE, \
+  RDFS_SUBCLASSOF
 
 RDF_SEQi = "http://www.w3.org/1999/02/22-rdf-syntax-ns#_%s"
 MAX_CARD = URI("http://www.w3.org/2002/07/owl#maxCardinality")
@@ -182,7 +183,7 @@ class Thing:
             if self._isUniqueObject(pred):
                 self._store.remove((self._id, pred, None))
                 self._store.add((self._id, pred, self._pythonToRdf(pred, obj)))
-            elif isinstance(obj, ResourceSet) or type(obj) is type(set()):
+            elif isinstance(obj, (sets.BaseSet, ResourceSet)):
                 ResourceSet(self, pred, obj.copy())
             else:
                 raise TypeError
@@ -217,9 +218,9 @@ class Thing:
         obj_types = self._getObjectTypes(pred, obj)
         if isinstance(obj, Literal):  # typed literals
             return self._literalToPython(obj, obj_types)
-        elif RDF.List in obj_types:
+        elif LIST in obj_types:
             return self._listToPython(obj)
-        elif RDF.Seq in obj_types:
+        elif SEQ in obj_types:
             l, i = [], 1
             while True:
                 counter = URI(RDF_SEQi % i)
@@ -244,11 +245,11 @@ class Thing:
         returns rdflib.Identifier.Identifier instance
         """
         obj_types = self._getObjectTypes(pred, obj)
-        if RDF.List in obj_types:
+        if LIST in obj_types:
             blank = BNode()
             self._pythonToList(blank, obj)   ### this actually stores things... 
             return blank
-        elif RDF.Seq in obj_types:  ### so will this
+        elif SEQ in obj_types:  ### so will this
             blank = BNode()
             i = 1
             for item in obj:
@@ -272,7 +273,7 @@ class Thing:
         """
         for obj_type in obj_types:
             try:
-                return SchemaToPython[str(obj_type)][0](obj)
+                return SchemaToPython[obj_type][0](obj)
             except KeyError:
                 pass
         return SchemaToPythonDefault[0](obj)
@@ -286,7 +287,7 @@ class Thing:
         """
         for obj_type in obj_types:
             try:
-                return Literal(SchemaToPython[str(obj_type)][1](obj))
+                return Literal(SchemaToPython[obj_type][1](obj))
             except KeyError:
                 pass
         return Literal(SchemaToPythonDefault[1](obj))
@@ -300,14 +301,14 @@ class Thing:
         returns list of python data representations
         """
         try:
-            first = self._store.triples((subj, RDF.first, None)).next()[2]
+            first = self._store.triples((subj, FIRST, None)).next()[2]
         except StopIteration:
             return []
         try:
-            rest = self._store.triples((subj, RDF.rest, None)).next()[2]
+            rest = self._store.triples((subj, REST, None)).next()[2]
         except StopIteration:
             return ValueError
-        return [self._rdfToPython(RDF.first, first)] + self._listToPython(rest)  ### type first?
+        return [self._rdfToPython(FIRST, first)] + self._listToPython(rest)  ### type first?
 
     def _pythonToList(self, subj, members):
         """
@@ -316,14 +317,14 @@ class Thing:
         subj - rdflib.Identifier.Identifier instance
         members - list of python data representations
         """
-        first = self._pythonToRdf(RDF.first, members[0])
-        self._store.add((subj, RDF.first, first))
+        first = self._pythonToRdf(FIRST, members[0])
+        self._store.add((subj, FIRST, first))
         if len(members) > 1:
             blank = BNode()
-            self._store.add((subj, RDF.rest, blank))
+            self._store.add((subj, REST, blank))
             self._pythonToList(blank, members[1:])
         else:
-            self._store.add((subj, RDF.rest, RDF.nil))
+            self._store.add((subj, REST, NIL))
             
     def _AttrToURI(self, attr):
         """
@@ -365,9 +366,9 @@ class Thing:
         returns list containing rdflib.Identifier.Identifier instances
         """
         obj_types = [o for (s, p, o) in self._schema_store.triples(
-          (pred, RDFS.range, None))]
+          (pred, RDFS_RANGE, None))]
         if isinstance(obj, URI):
-            obj_types += [o for (s, p, o) in self._store.triples((obj, RDF.type, None))]
+            obj_types += [o for (s, p, o) in self._store.triples((obj, TYPE, None))]
         return obj_types
 
     def _isUniqueObject(self, pred):
@@ -379,17 +380,17 @@ class Thing:
         returns bool
         """
         # pred rdf:type owl:FunctionalProperty - True
-        if (pred, RDF.type, FUNC_PROP) in self._schema_store:
+        if (pred, TYPE, FUNC_PROP) in self._schema_store:
             return True
         # subj rdf:type [ rdfs:subClassOf [ a owl:Restriction; owl:onProperty pred; owl:maxCardinality "1" ]] - True
         # subj rdf:type [ rdfs:subClassOf [ a owl:Restriction; owl:onProperty pred; owl:cardinality "1" ]] - True
-        subj_types = [o for (s, p, o) in self._store.triples((self._id, RDF.type, None))]
+        subj_types = [o for (s, p, o) in self._store.triples((self._id, TYPE, None))]
         for type in subj_types:
             superclasses = [o for (s, p, o) in \
-              self._schema_store.triples((type, RDFS.subClassOf, None))]
+              self._schema_store.triples((type, RDFS_SUBCLASSOF, None))]
             for superclass in superclasses:
                 if (
-                    (superclass, RDF.type, RESTRICTION) in self._schema_store and
+                    (superclass, TYPE, RESTRICTION) in self._schema_store and 
                     (superclass, ON_PROP, pred) in self._schema_store
                    ) and \
                    (
@@ -409,7 +410,7 @@ class Thing:
                 
     def __eq__(self, other):
         if isinstance(other, self.__class__):
-            return self._id == other._id
+            return self._id == other.__id
         elif isinstance(other, ID):
             return self._id == other
     
@@ -441,7 +442,7 @@ class Thing:
 class ResourceSet:
     """
     A set interface to the object(s) of a non-unique RDF predicate. Interface is a subset
-    (har, har) of set().copy() returns a set.
+    (har, har) of sets.Set. .copy() returns a sets.Set instance.
     """
     def __init__(self, subject, predicate, iterable=None):
         """
@@ -470,7 +471,7 @@ class ResourceSet:
           self._store.triples((self._subject._id, self._predicate, None)):
             yield self._subject._pythonToRdf(self._predicate, o)
     def copy(self):
-        return set(self)
+        return sets.Set(self)
     def add(self, obj):
         self._store.add((self._subject._id, self._predicate, 
           self._subject._pythonToRdf(self._predicate, obj)))
